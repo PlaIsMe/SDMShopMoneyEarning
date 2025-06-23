@@ -24,7 +24,6 @@ public class MobLootHandler {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Map<Mob, UUID> lastAttackers = new HashMap<>();
 
-    // 🔹 Track last player who attacked the mob
     @SubscribeEvent
     public static void onMobHurt(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof Mob mob)) return;
@@ -44,7 +43,7 @@ public class MobLootHandler {
 
         ServerPlayer pPlayer = null;
         if (event.getSource().getEntity() instanceof ServerPlayer directPlayer) {
-            pPlayer = directPlayer; // Direct kill
+            pPlayer = directPlayer;
         } else if (lastAttackers.containsKey(mob)) {
             UUID playerUUID = lastAttackers.get(mob);
             pPlayer = mob.getServer().getPlayerList().getPlayer(playerUUID);
