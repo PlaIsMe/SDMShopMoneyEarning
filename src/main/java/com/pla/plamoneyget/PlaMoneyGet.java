@@ -18,8 +18,8 @@ public class PlaMoneyGet
     public static final String MOD_ID = "plamoneyget";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public PlaMoneyGet() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public PlaMoneyGet(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(new MobLootHandler());
         MinecraftForge.EVENT_BUS.register(this);

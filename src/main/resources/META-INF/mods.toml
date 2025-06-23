@@ -14,13 +14,13 @@ Pla made this mod for adding money each time killing a mob.
 [[dependencies.plamoneyget]]
     modId="forge"
     mandatory=true
-    versionRange="[40.2.21,)"
+    versionRange="[43.5.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.plamoneyget]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,)"
+    versionRange="[1.19.2,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.plamoneyget]]

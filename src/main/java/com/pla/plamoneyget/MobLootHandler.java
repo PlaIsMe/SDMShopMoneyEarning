@@ -55,18 +55,9 @@ public class MobLootHandler {
             int moneyAmount = (int) health / 10;
             String moneyCommand = "sdmshop add " + pPlayer.getScoreboardName() + " " + moneyAmount;
 
-            CommandSourceStack source = pPlayer.createCommandSourceStack();
-            source = new CommandSourceStack(
-                    Objects.requireNonNull(source.getEntity()),
-                    source.getPosition(),
-                    source.getRotation(),
-                    source.getLevel(),
-                    4,
-                    source.getTextName(),
-                    source.getDisplayName(),
-                    source.getServer(),
-                    source.getEntity()
-            );
+            CommandSourceStack source = pPlayer.createCommandSourceStack()
+                    .withPermission(4)
+                    .withSuppressedOutput();
             try {
                 Objects.requireNonNull(pPlayer.getServer()).getCommands().getDispatcher().execute(moneyCommand, source);
 //                LOGGER.info("Added " + moneyAmount + " for " + pPlayer.getScoreboardName());
