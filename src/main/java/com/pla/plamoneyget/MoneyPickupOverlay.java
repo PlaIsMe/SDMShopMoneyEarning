@@ -1,8 +1,8 @@
 package com.pla.plamoneyget;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -26,10 +26,10 @@ public class MoneyPickupOverlay {
         long currentTime = System.currentTimeMillis();
         messages.removeIf(msg -> currentTime - msg.timestamp > MESSAGE_LIFETIME);
 
-        PoseStack poseStack = event.getPoseStack();
+        GuiGraphics guiGraphics = event.getGuiGraphics();
         Font font = mc.font;
         for (PickupMessage msg : messages) {
-            font.draw(poseStack, msg.text, x, y, msg.color);
+            guiGraphics.drawString(font, msg.text, x, y, msg.color);
             y -= 12;
         }
     }
