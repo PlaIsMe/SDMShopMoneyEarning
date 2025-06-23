@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="[40,)"
 license="All rights reserved"
+[[mods]]
 modId="plamoneyget"
 version="${file.jarVersion}"
 displayName="SDM Shop Money Earning"
@@ -25,6 +26,6 @@ Pla made this mod for adding money each time killing a mob.
 [[dependencies.plamoneyget]]
     modId="sdmshop"
     mandatory=true
-    versionRange="[5.4.3,)"
-    ordering="NONE"
+    versionRange="[0,)"
+    ordering="AFTER"
     side="BOTH"
