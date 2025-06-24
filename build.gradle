@@ -58,10 +58,19 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://company/com/maven2")
+    }
+    maven {
+        url = uri("https://cursemaven.com")
+    }
+    mavenLocal()
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation fg.deobf("curse.maven:sdm-shop-948942:6340166")
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -100,6 +109,11 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
         }
     }
 }
