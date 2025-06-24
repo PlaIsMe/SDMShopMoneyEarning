@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.1'
+version = '1.2'
 group = 'com.pla.plamoneyget'
 archivesBaseName = 'SDMShopMoneyEarning-1.18.2-forge'
 
@@ -84,10 +84,15 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        url "https://www.cursemaven.com"
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.21'
+    implementation fg.deobf("curse.maven:sdm-shop-948942:5300880")
+    implementation fg.deobf("curse.maven:ftbteams-404468:4579981")
 }
 
 jar {

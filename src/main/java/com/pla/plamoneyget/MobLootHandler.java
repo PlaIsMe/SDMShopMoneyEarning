@@ -12,6 +12,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.network.PacketDistributor;
+import net.sdm.sdmshopr.SDMShopR;
 import org.slf4j.Logger;
 
 import java.util.HashMap;
@@ -41,41 +43,22 @@ public class MobLootHandler {
         double health = entity.getMaxHealth();
         if (health < 20) return;
 
-        ServerPlayer pPlayer = null;
+        ServerPlayer pPlayer;
         if (event.getSource().getEntity() instanceof ServerPlayer directPlayer) {
             pPlayer = directPlayer;
         } else if (lastAttackers.containsKey(mob)) {
             UUID playerUUID = lastAttackers.get(mob);
             pPlayer = mob.getServer().getPlayerList().getPlayer(playerUUID);
+        } else {
+            pPlayer = null;
         }
 
         if (pPlayer == null) return;
 
         if (health >= 20) {
             int moneyAmount = (int) health / 10;
-            String moneyCommand = "sdmshop add " + pPlayer.getScoreboardName() + " " + moneyAmount;
-
-            CommandSourceStack source = pPlayer.createCommandSourceStack();
-            source = new CommandSourceStack(
-                    Objects.requireNonNull(source.getEntity()),
-                    source.getPosition(),
-                    source.getRotation(),
-                    source.getLevel(),
-                    4,
-                    source.getTextName(),
-                    source.getDisplayName(),
-                    source.getServer(),
-                    source.getEntity()
-            );
-            try {
-                Objects.requireNonNull(pPlayer.getServer()).getCommands().getDispatcher().execute(moneyCommand, source);
-//                LOGGER.info("Added " + moneyAmount + " for " + pPlayer.getScoreboardName());
-
-                MoneyPickupOverlay.addPickupMessage("◎ Money x" + moneyAmount, ChatFormatting.GREEN);
-
-            } catch (CommandSyntaxException e) {
-                LOGGER.error("Failed to execute command {}, error {}", moneyCommand, e);
-            }
+            SDMShopR.addMoney(pPlayer, moneyAmount);
+            PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), new MoneyMessage(moneyAmount));
         }
     }
 }
