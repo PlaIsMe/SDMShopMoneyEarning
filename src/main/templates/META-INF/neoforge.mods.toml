@@ -8,9 +8,9 @@ displayName="${mod_name}"
 authors="${mod_authors}"
 description='''${mod_description}'''
 [[dependencies.plamoneyget]]
-    modId="forge"
+    modId="neoforge"
     mandatory=true
-    versionRange="${forge_version_range}"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 [[dependencies.plamoneyget]]
@@ -20,7 +20,7 @@ description='''${mod_description}'''
     ordering="NONE"
     side="BOTH"
 [[dependencies.plamoneyget]]
-    modId="sdmshoprework"
+    modId="sdmshop"
     mandatory=true
     versionRange="[0,)"
     ordering="AFTER"

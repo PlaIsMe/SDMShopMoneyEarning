@@ -5,18 +5,20 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+
 import java.util.*;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = net.minecraftforge.api.distmarker.Dist.CLIENT)
+@EventBusSubscriber(modid = PlaMoneyGet.MOD_ID, value = Dist.CLIENT)
 public class MoneyPickupOverlay {
     private static final List<PickupMessage> messages = new ArrayList<>();
     private static final int MESSAGE_LIFETIME = 3000; // 3 seconds
 
     @SubscribeEvent
-    public static void onRenderGameOverlay(RenderGuiOverlayEvent.Post event) {
+    public static void onRenderGameOverlay(RenderGuiEvent.Pre event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
 
