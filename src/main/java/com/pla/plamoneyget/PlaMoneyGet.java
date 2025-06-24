@@ -21,6 +21,7 @@ public class PlaMoneyGet
     public PlaMoneyGet(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonSetup);
+        PacketHandler.register();
         MinecraftForge.EVENT_BUS.register(new MobLootHandler());
         MinecraftForge.EVENT_BUS.register(this);
     }
