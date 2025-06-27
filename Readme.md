@@ -1,3 +1,3 @@
 # SDM Shop Money Earning Architecture
 
-![Architecturev](<Architecture.png)
+![Architecture](<Architecture.png>)
