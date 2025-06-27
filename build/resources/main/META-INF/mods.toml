@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="All rights reserved"
+[[mods]]
+modId="plamoneyget"
+version="${file.jarVersion}"
+displayName="SDM Shop Money Earning"
+logoFile="examplemod.png"
+credits="Thanks for this example mod goes to Java"
+authors="pla_is_me"
+description='''
+Pla made this mod for adding money each time killing a mob.
+'''
+[[dependencies.plamoneyget]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.2.21,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.plamoneyget]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.plamoneyget]]
+    modId="sdmshop"
+    mandatory=true
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"
