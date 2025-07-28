@@ -3,6 +3,7 @@ package com.pla.plamoneyget;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -13,13 +14,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sdm.sdmshopr.SDMShopR;
 import org.slf4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = PlaMoneyGet.MOD_ID)
 public class MobLootHandler {
@@ -38,10 +37,18 @@ public class MobLootHandler {
         LivingEntity entity = (LivingEntity) event.getEntity();
         if (!(entity instanceof Mob mob)) return;
 
-        if (!(mob instanceof Enemy)) return;
+        ResourceLocation mobId = ForgeRegistries.ENTITIES.getKey(mob.getType());
+        if (mobId == null) return;
+
+        String id = mobId.toString();
+        List<? extends String> blackList = Config.BLACK_LIST.get();
+        List<? extends String> whiteList = Config.WHITE_LIST.get();
+
+        if (blackList.contains(id)) return;
+        if (!(mob instanceof Enemy) && !whiteList.contains(id)) return;
 
         double health = entity.getMaxHealth();
-        if (health < 20) return;
+        if (health < Config.MIN_HEALTH.get()) return;
 
         ServerPlayer pPlayer;
         if (event.getSource().getEntity() instanceof ServerPlayer directPlayer) {
@@ -55,10 +62,8 @@ public class MobLootHandler {
 
         if (pPlayer == null) return;
 
-        if (health >= 20) {
-            int moneyAmount = (int) health / 10;
-            SDMShopR.addMoney(pPlayer, moneyAmount);
-            PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), new MoneyMessage(moneyAmount));
-        }
+        int moneyAmount = (int) health / Config.DIVISOR.get();
+        SDMShopR.addMoney(pPlayer, moneyAmount);
+        PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), new MoneyMessage(moneyAmount));
     }
 }
