@@ -1,7 +1,7 @@
 package com.pla.plamoneyget;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -12,14 +12,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.sixik.sdmeconomy.economyData.CurrencyPlayerData;
 import net.sixik.sdmeconomy.utils.ErrorCodes;
 import org.slf4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @EventBusSubscriber(modid = PlaMoneyGet.MOD_ID)
 public class MobLootHandler {
@@ -39,10 +36,20 @@ public class MobLootHandler {
         LivingEntity entity = (LivingEntity) event.getEntity();
         if (!(entity instanceof Mob mob)) return;
 
-        if (!(mob instanceof Enemy)) return;
+        if (mob.level().isClientSide) return;
+
+        ResourceLocation mobId = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
+        if (mobId == null) return;
+
+        String id = mobId.toString();
+        List<? extends String> blackList = Config.BLACK_LIST.get();
+        List<? extends String> whiteList = Config.WHITE_LIST.get();
+
+        if (blackList.contains(id)) return;
+        if (!(mob instanceof Enemy) && !whiteList.contains(id)) return;
 
         double health = entity.getMaxHealth();
-        if (health < 20) return;
+        if (health < Config.MIN_HEALTH.get()) return;
 
         ServerPlayer pPlayer = null;
         if (event.getSource().getEntity() instanceof ServerPlayer directPlayer) {
@@ -54,18 +61,15 @@ public class MobLootHandler {
 
         if (pPlayer == null) return;
 
-        if (health >= 20) {
-            int moneyAmount = (int) health / 10;
-            ErrorCodes result = CurrencyPlayerData.SERVER.addCurrencyValue(pPlayer, "sdmcoin", moneyAmount);
-            switch (result) {
-                case SUCCESS -> {
-                    PacketDistributor.sendToPlayer(pPlayer, new Data(String.valueOf(moneyAmount)));
-                }
-                case NOT_FOUND -> LOGGER.error("§cCurrency sdmcoin not found.");
-                case FAIL -> LOGGER.error("§cFailed to add currency due to internal error.");
-                default -> LOGGER.error("§cUnknown error: " + result);
+        int moneyAmount = (int) health / Config.DIVISOR.get();
+        ErrorCodes result = CurrencyPlayerData.SERVER.addCurrencyValue(pPlayer, "sdmcoin", moneyAmount);
+        switch (result) {
+            case SUCCESS -> {
+                PacketDistributor.sendToPlayer(pPlayer, new Data(String.valueOf(moneyAmount)));
             }
-
+            case NOT_FOUND -> LOGGER.error("§cCurrency sdmcoin not found.");
+            case FAIL -> LOGGER.error("§cFailed to add currency due to internal error.");
+            default -> LOGGER.error("§cUnknown error: " + result);
         }
     }
 }
