@@ -11,7 +11,7 @@ public class Config {
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
 
-    public static ModConfigSpec.ConfigValue<Integer> DIVISOR;
+    public static ModConfigSpec.ConfigValue<Double> DIVISOR;
     public static ModConfigSpec.ConfigValue<Integer> MIN_HEALTH;
     public static ModConfigSpec.ConfigValue<List<? extends String>> BLACK_LIST;
     public static ModConfigSpec.ConfigValue<List<? extends String>> WHITE_LIST;
@@ -21,7 +21,7 @@ public class Config {
         DIVISOR = BUILDER.comment(
                         "Divisor for money you got from mob.",
                         "Default: 10 => money = mob health / 10")
-                .define("divisor", 10);
+                .define("divisor", 10.0);
         MIN_HEALTH = BUILDER.comment(
                         "Minimum health of a hostile mob that can drop money.",
                         "Default: 20")

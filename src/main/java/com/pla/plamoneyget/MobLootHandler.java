@@ -61,7 +61,7 @@ public class MobLootHandler {
 
         if (pPlayer == null) return;
 
-        int moneyAmount = (int) health / Config.DIVISOR.get();
+        int moneyAmount = (int)(health / Config.DIVISOR.get());
         ErrorCodes result = CurrencyPlayerData.SERVER.addCurrencyValue(pPlayer, "sdmcoin", moneyAmount);
         switch (result) {
             case SUCCESS -> {
