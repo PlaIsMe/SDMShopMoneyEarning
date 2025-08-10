@@ -58,7 +58,7 @@ public class MobLootHandler {
 
         if (pPlayer == null) return;
 
-        int moneyAmount = (int) health / Config.DIVISOR.get();
+        int moneyAmount = (int)(health / Config.DIVISOR.get());
         SDMShopR.addMoney(pPlayer, moneyAmount);
         PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), new MoneyMessage(moneyAmount));
     }
