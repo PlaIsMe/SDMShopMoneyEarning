@@ -1,31 +1,42 @@
-# SDM Shop Money Earning
+# SDMShop Money Earning
 
-**SDM Shop Money Earning** is a lightweight Minecraft mod that allows players to earn in-game money by slaying hostile monsters. Perfect for RPG-style progression or shop-based economy systems.
+<p align="center">
+  <a href="https://www.youtube.com/@pla_is_me" title="YouTube">
+    <img src="https://res.cloudinary.com/dxehc2hn3/image/upload/v1761811663/youtube_icon_bcbanf.png" alt="YouTube" width="80" height="80">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://discord.com/invite/EsvPsnqJpz" title="Discord">
+    <img src="https://res.cloudinary.com/dxehc2hn3/image/upload/v1761811736/discord_icon_bg_rp4omx.png" alt="Discord" width="80" height="80">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://ko-fi.com/pla_is_me" title="Ko‑fi">
+    <img src="https://res.cloudinary.com/dxehc2hn3/image/upload/v1761815764/kofi_icon_bg_sy3foi.png" alt="Ko‑fi" width="80" height="80">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://www.curseforge.com/minecraft/mc-mods/sdm-shop-money-earning" title="curseforge">
+    <img src="https://res.cloudinary.com/dxehc2hn3/image/upload/v1761811729/cruseforge_icon_bg_gucfxc.png" alt="Curseforge" width="80" height="80">
+  </a>
+</p>
 
-## 💰 How It Works
+## License & Use
+We reserve all rights. The points below outline what you can, cannot and must do when dealing with the
+contents of this repository.
 
-- Only **hostile mobs** can drop money when killed.
-- **Passive or neutral mobs** do **not** reward money.
-- Hostile mobs with **less than 20 health** do **not** reward money.
-- The **money reward** is calculated using the formula:
+### You CAN
+* Use this mod in a modpack.
+* Make videos and showcases about this mod.
+* Write your own code that uses this code as a dependency (such as addons or datapacks).
 
-```
-**Money Earned = Mob Health / 10**
-```
+### You CANNOT
+* Use or redistribute ANY assets of this mod, even for personal use.
 
-
-For example:
-- Killing a zombie with 20 health → **2 money**
-- Killing a boss with 100 health → **10 money**
-
-## 📦 Requirements
-
-- [SDM Shop mod](https://www.curseforge.com/minecraft/mc-mods/sdm-shop)
-
-## 📞 Support
-
-For issues or suggestions, feel free to open an issue on the [GitHub repo](https://github.com/PlaIsMe/SDMShopMoneyEarning).
-
----
-
-Enjoy your monster hunting — now with profit! 💸
+### Disclaimer
+<sub> 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</sub>
